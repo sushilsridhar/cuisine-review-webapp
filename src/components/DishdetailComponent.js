@@ -26,7 +26,7 @@ class DishDetail extends Component {
                 <div key={comments[i].id}>
                     <ol className="list-unstyled">
                         <li>{comments[i].comment}</li>
-                        <li>-- {comments[i].author}, {comments[i].date}</li>
+                        <li>-- {comments[i].author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comments[i].date)))}</li>
                     </ol>
                 </div>);
             }
@@ -45,11 +45,11 @@ class DishDetail extends Component {
             <div className="container">
                 <div className ="row">
                     <div className="col-12 col-md-5 mt-1">
-                       {this.renderDish(dishDetails)}
+                       {dishDetails.map((dish)=> this.renderDish(dish))}
                     </div>
                     <div className="col-12 col-md-5 mt-1">
                         <h4>Comments</h4>
-                        {this.renderComments(dishDetails.comments)}
+                        {dishDetails.map((dish)=> this.renderComments(dish.comments))}
                     </div>
                 </div>
             </div>    
