@@ -19,7 +19,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
         );
     }
 
-    function RenderComments({comments}) {
+    function RenderComments({comments, addComment, dishId}) {
         if(comments != null) {  
             var allComments = []          
             for(var i=0; i<comments.length; i++) {
@@ -31,6 +31,9 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                     </ol>
                 </div>);
             }
+            
+            allComments.push(<CommentForm dishId={dishId} addComment={addComment} />);
+
             return allComments
         } 
         else {
@@ -61,8 +64,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                     </div>
                     <div className="col-12 col-md-5 mt-1">
                         <h4>Comments</h4>
-                        <RenderComments comments={props.comments} />
-                        <CommentForm />
+                        <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
                     </div>
                 </div>
             </div>    
@@ -90,7 +92,8 @@ class CommentForm extends Component {
     handleSubmit(values) {
         this.toggleModal();
         console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        //alert('Current State is: ' + JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     toggleModal() {
@@ -124,7 +127,7 @@ class CommentForm extends Component {
                                 <FormGroup>
                                     <Label htmlFor="name" md={2}>Name</Label>
                                     <Col>
-                                        <Control.text model=".name" id="name" name="name"
+                                        <Control.text model=".author" id="name" name="name"
                                             placeholder="Your Name"
                                             className="form-control"
                                             validators={{
@@ -146,7 +149,7 @@ class CommentForm extends Component {
                                 <FormGroup>
                                     <Label htmlFor="message" md={2}>Comment</Label>
                                     <Col>
-                                        <Control.textarea model=".message" id="message" name="message"
+                                        <Control.textarea model=".comment" id="message" name="message"
                                             rows="6"
                                             className="form-control" />
                                     </Col>
