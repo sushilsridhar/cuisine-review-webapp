@@ -21,7 +21,7 @@ import { baseUrl } from '../shared/baseUrl';
         );
     }
 
-    function RenderComments({comments, addComment, dishId}) {
+    function RenderComments({comments, postComment, dishId}) {
         if(comments != null) {  
             var allComments = []          
             for(var i=0; i<comments.length; i++) {
@@ -34,7 +34,7 @@ import { baseUrl } from '../shared/baseUrl';
                 </div>);
             }
             
-            allComments.push(<CommentForm dishId={dishId} addComment={addComment} />);
+            allComments.push(<CommentForm dishId={dishId} postComment={postComment} />);
 
             return allComments
         } 
@@ -84,7 +84,7 @@ import { baseUrl } from '../shared/baseUrl';
                         </div>
                         <div className="col-12 col-md-5 mt-1">
                             <h4>Comments</h4>
-                            <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
+                            <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id} />
                         </div>
                     </div>
                 </div>    
@@ -113,7 +113,7 @@ class CommentForm extends Component {
         this.toggleModal();
         console.log('Current State is: ' + JSON.stringify(values));
         //alert('Current State is: ' + JSON.stringify(values));
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     toggleModal() {
