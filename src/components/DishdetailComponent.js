@@ -6,12 +6,13 @@ import { Button, Modal, ModalHeader, ModalBody,
      FormGroup, Label, Col } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 
     function RenderDish({dishDetails}) {
         return(
             <Card>
-                <CardImg width="100%" src={dishDetails.image} alt={dishDetails.name} />
+                <CardImg top src={baseUrl + dishDetails.image} alt={dishDetails.name} />
                 <CardBody>
                     <CardTitle>{dishDetails.name}</CardTitle>
                     <CardText>{dishDetails.description}</CardText>
